@@ -2,7 +2,6 @@ from flask import Flask
 from database.db import db 
 
 
-
 class MyServer(): #classe que inicializa e guarda o funcionamento do flask
     def __init__(self) -> None:
         self.app = Flask(__name__) #obj de flask que estamos importando

@@ -1,6 +1,6 @@
 from database.db import db
 
-class Status_membros(db.Model): #criando representações das tabelas do bancp (db.Model) 
+class Status_multas(db.Model): #criando representações das tabelas do bancp (db.Model) 
     def to_dict(self): #to_dict transforma database rows em dicioinarios
         return{
             'id_status': self.id_status,
