@@ -1,0 +1,20 @@
+meta {
+  name: DEL
+  type: http
+  seq: 4
+}
+
+delete {
+  url: http://localhost:3000/categoria
+  "id" : 1,
+  "categoria": "Romances"
+http://localhost:3000/categoria
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "id" : 1
+  }
+}

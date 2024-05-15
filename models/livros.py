@@ -8,9 +8,9 @@ class Livros(db.Model):
             'id_livro': self.id_livro,
             'titulo': self.titulo,
             'ano': self.ano,
-            'disponivel': self.titulo, 
+            'disponiveis': self.disponiveis, 
             'estoque': self.estoque, #contando os que estão emprestados
-            'fk_categoria': self.fk_categora,
+            'fk_categoria': self.fk_categoria,
             'fk_autor': self.fk_autor
         }
     
@@ -19,17 +19,17 @@ class Livros(db.Model):
     ano = db.Column(db.Integer, nullable=False)
     disponivel = db.Column(db.Integer, nullable=False)
     estoque = db.Column(db.Integer, nullable=False)
-    fk_categoria = db.Column(ForeignKey('categorias.id'), nullable=False)
-    fk_autor = db.Column(ForeignKey('autores.id'), nullable=False)
+    fk_categoria = db.Column(ForeignKey('categorias.id_categoria'), nullable=False)
+    fk_autor = db.Column(ForeignKey('autores.id_autor'), nullable=False)
 
     categoria = relationship('Categorias', backref='livros')
     autor = relationship('Autores', backref='livros')
 
 
-    def __init__(self, titulo, ano, disponivel, estoque, fk_categoria, fk_autor):
+    def __init__(self, titulo, ano, disponiveis, estoque, fk_categoria, fk_autor):
         self.titulo = titulo
         self.ano = ano
-        self.disponivel = disponivel
+        self.disponiveis = disponiveis
         self.estoque = estoque
         self.fk_categoria = fk_categoria
         self.fk_autor = fk_autor

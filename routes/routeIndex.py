@@ -1,4 +1,9 @@
-from livrosRoutes import livrosRoutes
+from routes.autoresRoutes import autoresRoutes
+from routes.categoriasRoutes import categoriasRoutes
+from routes.livrosRoutes import livrosRoutes
+
 
 def routeIndex(app):
-    livrosRoutes(app=app)
+    autoresRoutes(app)
+    categoriasRoutes(app)
+    livrosRoutes(app)

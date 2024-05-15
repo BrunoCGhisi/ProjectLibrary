@@ -1,3 +1,4 @@
+from controllers.livrosController import livrosController
 
 def livrosRoutes(app):
-    app.route('/cargos', methods=['GET', 'POST', 'PUT', "DELETE"]) 
+    app.route('/livro', methods=['GET', 'POST', 'PUT', "DELETE"])(livrosController)
