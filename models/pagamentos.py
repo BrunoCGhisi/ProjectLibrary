@@ -12,7 +12,7 @@ class Pagamentos(db.Model):
         }
     
     id_pagamento = db.Column(db.Integer, primary_key=True, nullable=False, unique= True)
-    fk_membro = db.Column(ForeignKey('membros.id'), nullable=False)
+    fk_membro = db.Column(ForeignKey('membros.id_membro'), nullable=False)
     data_pagamento = db.Column(db.Date, nullable=False)
     valor = db.Column(db.Float, nullable=False)
 

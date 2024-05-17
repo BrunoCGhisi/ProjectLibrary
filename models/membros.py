@@ -22,7 +22,7 @@ class Membros(db.Model): #criando representações das tabelas do bancp (db.Mode
     cpf = db.Column(db.String(11), nullable=False)
     telefone = db.Column(db.String(9), nullable=False)
     data_ingresso = db.Column(db.Date, nullable=False)
-    fk_status = db.Column(ForeignKey('status_membros.id'), nullable=False)
+    fk_status = db.Column(ForeignKey('status_membros.id_status'), nullable=False)
 
     status_membro = relationship('Status_membros', backref='membros')
 

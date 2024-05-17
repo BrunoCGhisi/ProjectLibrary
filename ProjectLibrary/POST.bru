@@ -5,13 +5,15 @@ meta {
 }
 
 post {
-  url: http://localhost:3000/categoria
+  url: http://localhost:3000/reserva
   body: json
   auth: none
 }
 
 body:json {
   {
-    "categoria": "Romance"
+    "fk_livro": 1,
+    "fk_membro": 1,
+    "data_reserva": "2024-10-22"
   }
 }

@@ -17,7 +17,7 @@ class Livros(db.Model):
     id_livro = db.Column(db.Integer, primary_key=True, nullable=False, unique= True)
     titulo = db.Column(db.String(100), nullable=False)
     ano = db.Column(db.Integer, nullable=False)
-    disponivel = db.Column(db.Integer, nullable=False)
+    disponiveis = db.Column(db.Integer, nullable=False)
     estoque = db.Column(db.Integer, nullable=False)
     fk_categoria = db.Column(ForeignKey('categorias.id_categoria'), nullable=False)
     fk_autor = db.Column(ForeignKey('autores.id_autor'), nullable=False)
