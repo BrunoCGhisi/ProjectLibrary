@@ -5,14 +5,14 @@ from sqlalchemy.orm import relationship
 class Multas(db.Model):
     def to_dict(self):
         return{
-            'id_multas': self.id_multas,
+            'id_multa': self.id_multas,
             'fk_emprestimo': self.fk_emprestimo,
             'data_prazo': self.data_prazo,
             'valor': self.valor,
             'fk_status': self.fk_status,
         }
     
-    id_multas = db.Column(db.Integer, primary_key=True, nullable=False, unique= True)
+    id_multa = db.Column(db.Integer, primary_key=True, nullable=False, unique= True)
     fk_emprestimo = db.Column(ForeignKey('membros.id'), nullable=False)
     data_prazo = db.Column(db.Date, nullable=False)
     valor = db.Column(db.Float, nullable=False)

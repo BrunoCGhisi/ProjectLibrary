@@ -1,19 +1,17 @@
 from routes.autoresRoutes import autoresRoutes
 from routes.categoriasRoutes import categoriasRoutes
 from routes.livrosRoutes import livrosRoutes
-from routes.sttsMembrosRoutes import sttsMembrosRoutes
-from routes.sttsMultasRoutes import sttsMultasRoutes
-from routes.sttsEmprestimosRoutes import sttsEmprestimosRoutes
+from routes.Autores_livrosRoutes import Autores_livrosRoutes
 from routes.membrosRoutes import membrosRoutes
 from routes.pagamentosRoutes import pagamentosRoutes
 from routes.reservasRoutes import reservasRoutes
+from routes.sttsEmprestimosRoutes import sttsEmprestimosRoutes
 
 def routeIndex(app):
     autoresRoutes(app)
     categoriasRoutes(app)
     livrosRoutes(app)
-    sttsMembrosRoutes(app)
-    sttsMultasRoutes(app)
+    Autores_livrosRoutes(app)
     sttsEmprestimosRoutes(app)
     membrosRoutes(app)
     pagamentosRoutes(app)

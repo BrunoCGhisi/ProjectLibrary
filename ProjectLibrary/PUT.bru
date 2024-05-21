@@ -5,14 +5,16 @@ meta {
 }
 
 put {
-  url: http://localhost:3000/livro
+  url: http://localhost:3000/reserva
   body: json
   auth: none
 }
 
 body:json {
   {
-    "id" : 1,
-    "titulo": "AA"
+    "id": 1,
+    "fk_livro": 1,
+    "fk_membro": 2,
+    "data_reserva": "2024-09-22"
   }
 }
