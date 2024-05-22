@@ -1,24 +1,24 @@
 from flask import request
 from database.db import db
-from models.status_multas import Status_multas
+from models.multas import Multas
 
-def sttsMultasController():
+def multasController():
     if request.method == 'POST':
         try:
             data = request.get_json()
-            stts_multas = Status_multas(data['status_atual'])
-            db.session.add(stts_multas)
+            multas = Multas(data['fk_empestimo'], data['fk_membro'], data['data_multa'], data['data_prazo'], data['valor'], data['status'])
+            db.session.add(multas)
             db.session.commit()
-            return 'Status da multa adicionado com sucesso!', 200
+            return 'Multa adicionado com sucesso!', 200
         except Exception as e:
             return f'Não foi possível inserir. Erro {str(e)}', 405
         
 
     if request.method == 'GET':
         try:
-            data = Status_multas.query.all()
+            data = Multas.query.all()
 
-            newData = {'status_multas': [stts_multa.to_dict() for stts_multa in data]} #pe gando os dados e deixando eles cute
+            newData = {'multas': [multa.to_dict() for multa in data]} #pe gando os dados e deixando eles cute
             return newData, 200
 
         except Exception as e:
@@ -29,13 +29,20 @@ def sttsMultasController():
             try:
 
                 data = request.get_json() #pega todos os dados
-                put_stts_multa_id = data['id'] #pega o id dos dados que o data trouxe
-                stts_multa = Status_multas.query.get(put_stts_multa_id)
+                put_multa_id = data['id'] #pega o id dos dados que o data trouxe
+                multa = Multas.query.get(put_multa_id)
 
-                if stts_multa is None:
+                if multa is None:
                     return{'error': 'Status não encontrado'}, 405
                 
-                stts_multa.status_atual = data.get('status_atual', stts_multa.status_atual)
+                multa.fk_emprestimo = data.get('fk_emprestimo', multa.fk_emprestimo)
+                multa.fk_membro = data.get('fk_membro', multa.fk_membro)
+                multa.data_multa = data.get('data_multa', multa.data_multa)
+                multa.data_prazo = data.get('data_prazo', multa.data_prazo)
+                multa.valor = data.get('valor', multa.valor)
+                multa.status = data.get('status', multa.status)
+
+                
                  
                 
                 db.session.commit()
@@ -48,13 +55,13 @@ def sttsMultasController():
         try:
             data = request.get_json() #pega todos os dados do Bruno
 
-            delete_stts_multa_id = data['id'] #pega o id dos dados que o data trouxe do Bruno
-            stts_multa = Status_multas.query.get(delete_stts_multa_id) # vai procurar usuarios NO BANCO com esse id
+            delete_multa_id = data['id'] #pega o id dos dados que o data trouxe do Bruno
+            multa = Multas.query.get(delete_multa_id) # vai procurar usuarios NO BANCO com esse id
 
-            if stts_multa is None:
+            if multa is None:
                 return{'error': 'Status não encontrado'}, 405
             
-            db.session.delete(stts_multa)
+            db.session.delete(multa)
             db.session.commit()
             return "Status deletado com sucesso", 202
 

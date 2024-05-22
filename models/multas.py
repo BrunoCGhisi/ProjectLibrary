@@ -7,26 +7,32 @@ class Multas(db.Model):
         return{
             'id_multa': self.id_multas,
             'fk_emprestimo': self.fk_emprestimo,
+            'fk_membro': self.fk_membro,
+            'data_multa': self.data_multa,
             'data_prazo': self.data_prazo,
             'valor': self.valor,
-            'fk_status': self.fk_status,
+            'status': self.status
         }
     
     id_multa = db.Column(db.Integer, primary_key=True, nullable=False, unique= True)
-    fk_emprestimo = db.Column(ForeignKey('membros.id'), nullable=False)
+    fk_emprestimo = db.Column(ForeignKey('emprestimos.id_emprestimo'), nullable=False)
+    fk_membro = db.Column(ForeignKey('membros.id_membro'), nullable=False)
+    data_multa = db.Column(db.Date, nullable=False)
     data_prazo = db.Column(db.Date, nullable=False)
     valor = db.Column(db.Float, nullable=False)
-    fk_status = db.Column(ForeignKey('status_multas.id'), nullable=False)
+    status = db.Column(db.Integer(1), nullable=False)
 
-    membro = relationship('Membros', backref='pagamentos')
-    status_multa = relationship('Status_multas', backref='multas')
+    membro = relationship('Membros', backref='multas')
+    emprestimo = relationship('emprestimos', backref='multas')
 
 
-    def __init__(self, fk_emprestimo, data_prazo, valor, fk_status):
+    def __init__(self, fk_emprestimo, fk_membro, data_multa, data_prazo, valor, status):
         self.fk_emprestimo = fk_emprestimo
+        self.fk_membro = fk_membro
+        self.data_multa = data_multa
         self.data_prazo = data_prazo
         self.valor = valor
-        self.fk_status = fk_status
+        self.status = status
 
 
 
