@@ -14,14 +14,14 @@ class Emprestimos(db.Model):
         }
     
     id_emprestimo = db.Column(db.Integer, primary_key=True, nullable=False, unique= True)
-    fk_livro = db.Column(ForeignKey('livros.id'), nullable=False)
-    fk_membro = db.Column(ForeignKey('membros.id'), nullable=False)
+    fk_livro = db.Column(ForeignKey('livros.id_livro'), nullable=False)
+    fk_membro = db.Column(ForeignKey('membros.id_membro'), nullable=False)
     data_emprestimo = db.Column(db.Date, nullable=False)
     data_retorno = db.Column(db.Date, nullable=False)
-    fk_status = db.Column(ForeignKey('status_emprestimos.id'), nullable=False)
+    fk_status = db.Column(ForeignKey('status_emprestimos.id_status'), nullable=False)
 
-    livro = relationship('Livros', backref='emprestimo')
-    membro = relationship('Membros', backref='emprestimo')
+    livro = relationship('Livros', backref='emprestimos')
+    membro = relationship('Membros', backref='emprestimos')
     status_emprestimo = relationship('Status_emprestimos', backref='emprestimo')
 
 

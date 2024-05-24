@@ -18,7 +18,7 @@ class Reservas(db.Model):
     fk_membro = db.Column(ForeignKey('membros.id_membro'), nullable=False)
     data_reserva = db.Column(db.Date, nullable=False)
     data_retirada = db.Column(db.Date, nullable=False)
-    status = db.Column(db.Integer(1), nullable=False)
+    status = db.Column(db.Integer, nullable=False)
 
     livro = relationship('Livros', backref='reservas')
     membro = relationship('Membros', backref='reservas')

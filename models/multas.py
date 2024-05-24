@@ -20,10 +20,10 @@ class Multas(db.Model):
     data_multa = db.Column(db.Date, nullable=False)
     data_prazo = db.Column(db.Date, nullable=False)
     valor = db.Column(db.Float, nullable=False)
-    status = db.Column(db.Integer(1), nullable=False)
+    status = db.Column(db.Integer, nullable=False)
 
     membro = relationship('Membros', backref='multas')
-    emprestimo = relationship('emprestimos', backref='multas')
+    emprestimo = relationship('Emprestimos', backref='multas')
 
 
     def __init__(self, fk_emprestimo, fk_membro, data_multa, data_prazo, valor, status):

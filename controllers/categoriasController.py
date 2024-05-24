@@ -1,6 +1,10 @@
-from flask import request
+from flask import request, render_template
 from database.db import db
 from models.categorias import Categorias
+
+def clientesHtmlController():
+    if request.method == 'GET':
+        return render_template('catHTML.html')
 
 def categoriasController():
     if request.method == 'POST':
@@ -14,12 +18,13 @@ def categoriasController():
             return f'Não foi possível inserir. Erro {str(e)}', 405
         
 
-    if request.method == 'GET':
+    elif request.method == 'GET':
         try:
             data = Categorias.query.all()
 
-            newData = {'categorias': [categoria.to_dict() for categoria in data]} #pe gando os dados e deixando eles cute
-            return newData, 200
+            print([ categoria.to_dict() for categoria in data])
+            # newdata peggando os dados e deixando eles cute
+            return render_template('categorias.html', data={'categorias':[ categoria.to_dict() for categoria in data]})
 
         except Exception as e:
             return f'Não foi possível buscar. Erro {str(e)}', 405

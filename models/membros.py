@@ -13,7 +13,7 @@ class Membros(db.Model): #criando representações das tabelas do bancp (db.Mode
             'cpf': self.cpf,
             'telefone': self.telefone,
             'data_ingresso': self.data_ingresso,
-            'is_adm': self.fk_status,
+            'is_adm': self.is_adm,
             'status': self.status
         }
     
@@ -25,8 +25,8 @@ class Membros(db.Model): #criando representações das tabelas do bancp (db.Mode
     cpf = db.Column(db.String(11), nullable=False)
     telefone = db.Column(db.String(9), nullable=False)
     data_ingresso = db.Column(db.Date, nullable=False)
-    is_adm = db.Column(db.tinyint, nullable=False)
-    status = db.Column(db.tinyint, nullable=False)
+    is_adm = db.Column(db.Boolean(), nullable=False)
+    status = db.Column(db.Boolean(), nullable=False)
 
 
     def __init__(self, nome, email,senha, cpf, telefone, data_ingresso, is_adm, status):
