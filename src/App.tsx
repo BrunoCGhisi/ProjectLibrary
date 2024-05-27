@@ -9,6 +9,7 @@ export const App = () => {
       justifyContent= 'center'
       p= '2'
       sx={{border: '1px solid grey'}}>
+      
         <Button variant="contained" color='primary'> Hello world </Button>
         <Button variant="contained"> Hello world^^2 </Button>
       </Box>
