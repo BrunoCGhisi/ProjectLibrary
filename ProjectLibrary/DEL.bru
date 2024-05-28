@@ -1,0 +1,17 @@
+meta {
+  name: DEL
+  type: http
+  seq: 4
+}
+
+delete {
+  url: http://localhost:3000/reserva
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "id" : 2
+  }
+}
