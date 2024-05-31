@@ -11,6 +11,7 @@ def categoriasController():
         try:
             data = request.get_json()
             categorias = Categorias(data['categoria'])
+            #perguntar sobre salvar a senha 
             db.session.add(categorias)
             db.session.commit()
             return 'Categorias adicionado com sucesso!', 200
@@ -24,7 +25,8 @@ def categoriasController():
 
             print([ categoria.to_dict() for categoria in data])
             # newdata peggando os dados e deixando eles cute
-            return render_template('categorias.html', data={'categorias':[ categoria.to_dict() for categoria in data]})
+            newData={'categorias':[ categoria.to_dict() for categoria in data]}
+            return newData, 200
 
         except Exception as e:
             return f'Não foi possível buscar. Erro {str(e)}', 405
