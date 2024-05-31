@@ -6,7 +6,7 @@ def autores_livrosController():
     if request.method == 'POST':
         try:
             data = request.get_json()
-            autores_livros = Autores_livros(data['nome'])
+            autores_livros = Autores_livros(data['fk_autor'], data['fk_livro'])
             db.session.add(autores_livros)
             db.session.commit()
             return 'autores_livros adicionados com sucesso!', 200
