@@ -51,11 +51,10 @@ def categoriasController():
                 return f"Não foi possível atualizar a categoria. Erro:{str(e)}", 405
             
     elif request.method == 'DELETE':
+        print(request.args.to_dict().get('id'))
         try:
-            data = request.get_json() #pega todos os dados do Bruno
-
-            delete_categoria_id = data['id'] #pega o id dos dados que o data trouxe do Bruno
-            categoria = Categorias.query.get(delete_categoria_id) # vai procurar usuarios NO BANCO com esse id
+            data = request.args.to_dict().get('id')
+            categoria = Categorias.query.get(data)
 
             if categoria is None:
                 return{'error': 'Categoria não encontrado'}, 405
@@ -66,6 +65,3 @@ def categoriasController():
 
         except Exception as e:
             return f"Não foi possível apagar o categoria. Erro:{str(e)}", 405
-        
-
-
