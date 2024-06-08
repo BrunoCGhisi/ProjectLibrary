@@ -1,7 +1,7 @@
 from flask import request, render_template
 from database.db import db
 from models.categorias import Categorias
-
+#a
 def clientesHtmlController():
     if request.method == 'GET':
         return render_template('catHTML.html')
