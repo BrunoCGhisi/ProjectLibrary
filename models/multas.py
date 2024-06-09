@@ -32,7 +32,7 @@ class Multas(db.Model):
         self.data_multa = data_multa
         self.data_prazo = data_prazo
         self.valor = valor
-        self.status = status
+        self.status = int(status)
 
 
 

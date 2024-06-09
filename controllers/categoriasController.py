@@ -22,7 +22,6 @@ def categoriasController():
     elif request.method == 'GET':
         try:
             data = Categorias.query.all()
-
             print([ categoria.to_dict() for categoria in data])
             # newdata peggando os dados e deixando eles cute
             newData={'categorias':[ categoria.to_dict() for categoria in data]}

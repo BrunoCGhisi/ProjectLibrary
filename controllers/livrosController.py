@@ -29,8 +29,8 @@ def livrosController():
             try:
 
                 data = request.get_json() #pega todos os dados
-                put_livro_id = data['id'] #pega o id dos dados que o data trouxe
-                livro = Livros.query.get(put_livro_id)
+                livro_id = request.args.to_dict().get('id')
+                livro = Livros.query.get(livro_id)
 
                 if livro is None:
                     return{'error': 'Livro não encontrado'}, 405
@@ -55,10 +55,9 @@ def livrosController():
             
     elif request.method == 'DELETE':
         try:
-            data = request.get_json() #pega todos os dados do Bruno
 
-            delete_livro_id = data['id'] #pega o id dos dados que o data trouxe do Bruno
-            livro = Livros.query.get(delete_livro_id) # vai procurar usuarios NO BANCO com esse id
+            data = request.args.to_dict().get('id')#pega todos os dados do Bruno
+            livro = Livros.query.get(data) # vai procurar usuarios NO BANCO com esse id
 
             if livro is None:
                 return{'error': 'Livro não encontrado'}, 405

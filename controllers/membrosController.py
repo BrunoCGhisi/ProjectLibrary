@@ -5,19 +5,19 @@ from models.membros import Membros
 def membrosController():
     if request.method == 'POST':
         try:
+
             data = request.get_json()
             membros = Membros(data['nome'], data['email'], data['senha'], data['cpf'], data['telefone'], data['data_ingresso'], data['is_adm'], data['status'])
             db.session.add(membros)
             db.session.commit()
             return 'Membro add com sucesso', 200
         except Exception as e:
-            return f'Ocorreu um erro, falha: {str(e)}', 405
+            return f'Ocorreu um erro, falha: {str(e)}', 400
             
 
     elif request.method == "GET":
         try:
             data = Membros.query.all()
-
             newData = {'membros': [membro.to_dict() for membro in data]}
             return newData, 200
         except Exception as e:
@@ -26,9 +26,10 @@ def membrosController():
 
     elif request.method == "PUT":
         try:
-            data = request.get_json()
-            put_membro_id = data['id']
-            membro = Membros.query.get(put_membro_id)
+
+            id_membro = request.args.to_dict().get('id')
+            membro = Membros.query.get(id_membro)
+            data = request.get_json() #pega todos os dados
 
             if membro is None:
                   return{'error': 'Membro não encontrado'}, 405
@@ -50,9 +51,8 @@ def membrosController():
     
     elif request.method == "DELETE":
         try:
-            data = request.get_json()
-            delete_membro_id  = data["id"]
-            membro = Membros.query.get(delete_membro_id)
+            data = request.args.to_dict().get('id')
+            membro = Membros.query.get(data)
 
             if membro is None:
                 return{'error': 'membro não encontrado'}, 405

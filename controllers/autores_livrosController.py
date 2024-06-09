@@ -6,7 +6,7 @@ def autores_livrosController():
     if request.method == 'POST':
         try:
             data = request.get_json()
-            autores_livros = Autores_livros(data['fk_autor'], data['fk_livro'])
+            autores_livros = Autores_livros(data['id_autor_livro'], data['fk_autor'], data['fk_livro'])
             db.session.add(autores_livros)
             db.session.commit()
             return 'autores_livros adicionados com sucesso!', 200
@@ -16,8 +16,8 @@ def autores_livrosController():
 
     if request.method == 'GET':
         try:
-            data = Autores_livros.query.all()
 
+            data = Autores_livros.query.all()
             newData = {'autores_livros': [autor_livro.to_dict() for autor_livro in data]} #pe gando os dados e deixando eles cute
             return newData, 200
 
@@ -27,9 +27,10 @@ def autores_livrosController():
 
     elif request.method == 'PUT':
             try:
-                data = request.get_json() #pega todos os dados
-                put_autor_livro_id = data['id'] #pega o id dos dados que o data trouxe
-                autor_livro = Autores_livros.query.get(put_autor_livro_id)
+                id_autor_livro = request.args.to_dict().get('id')
+                autor_livro = Autores_livros.query.get(id_autor_livro)
+                data = request.get_json()
+
                 if autor_livro is None:
                     return{'error': 'Autor não encontrado'}, 405
                 
@@ -45,10 +46,8 @@ def autores_livrosController():
             
     elif request.method == 'DELETE':
         try:
-            data = request.get_json() #pega todos os dados do Bruno
-
-            delete_autor_livro_id = data['id'] #pega o id dos dados que o data trouxe do Bruno
-            autor_livro = Autores_livros.query.get(delete_autor_livro_id) # vai procurar usuarios NO BANCO com esse id
+            data = request.args.to_dict().get('id') #pega todos os dados do Bruno
+            autor_livro = Autores_livros.query.get(data) # vai procurar usuarios NO BANCO com esse id
 
             if autor_livro is None:
                 return{'error': 'Autor não encontrado'}, 405

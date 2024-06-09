@@ -29,6 +29,8 @@ def autoresController():
                 id_autor = request.args.to_dict().get('id')
                 autor = Autores.query.get(id_autor)
                 data = request.get_json() #pega todos os dados
+
+                
                 if autor is None:
                     return{'error': 'Autor não encontrado'}, 405
                 

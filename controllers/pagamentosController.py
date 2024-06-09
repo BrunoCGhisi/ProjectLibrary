@@ -17,7 +17,6 @@ def pagamentosController():
     elif request.method == "GET":
         try:
             data = Pagamentos.query.all()
-
             newData = {'pagamentos': [pagamento.to_dict() for pagamento in data]}
             return newData, 200
         except Exception as e:
@@ -27,8 +26,8 @@ def pagamentosController():
     elif request.method == "PUT":
         try:
             data = request.get_json()
-            put_pagamento_id = data['id']
-            pagamento = Pagamentos.query.get(put_pagamento_id)
+            pagamento_id = request.args.to_dict().get('id') 
+            pagamento = Pagamentos.query.get(pagamento_id)
 
             if pagamento is None:
                   return{'error': 'pagamento não encontrado'}, 405
@@ -45,9 +44,8 @@ def pagamentosController():
     
     elif request.method == "DELETE":
         try:
-            data = request.get_json()
-            delete_pagamento_id  = data["id"]
-            pagamento = Pagamentos.query.get(delete_pagamento_id)
+            data = request.args.to_dict().get('id') 
+            pagamento = Pagamentos.query.get(data)
 
             if pagamento is None:
                 return{'error': 'pagamento não encontrado'}, 405

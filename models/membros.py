@@ -1,7 +1,7 @@
 from database.db import db
 from sqlalchemy import ForeignKey
 from sqlalchemy.orm import relationship
-
+from flask_restx import inputs
 
 class Membros(db.Model): #criando representações das tabelas do bancp (db.Model) 
     def to_dict(self): #to_dict transforma database rows em dicioinarios
@@ -36,8 +36,8 @@ class Membros(db.Model): #criando representações das tabelas do bancp (db.Mode
         self.cpf = cpf
         self.telefone = telefone
         self.data_ingresso = data_ingresso
-        self.is_adm = is_adm
-        self.status = status
+        self.is_adm = int(is_adm)
+        self.status = int(status)
 
 
 # MUDAR OS VALORES PRO BANCO ORIGINAL OBV
