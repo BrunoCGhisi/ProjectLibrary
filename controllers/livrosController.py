@@ -6,7 +6,7 @@ def livrosController():
     if request.method == 'POST':
         try:
             data = request.get_json()
-            livros = Livros(data['fk_autor_livro'], data['fk_categoria'], data['titulo'], data['ano'], data['disponiveis'], data['estoque'], data['capa'])
+            livros = Livros(data['fk_autor'], data['fk_categoria'], data['titulo'], data['ano'], data['disponiveis'], data['estoque'], data['capa'])
             db.session.add(livros)
             db.session.commit()
             return 'Livro adicionado com sucesso!', 200
@@ -36,7 +36,7 @@ def livrosController():
                     return{'error': 'Livro não encontrado'}, 405
                 
 
-                livro.fk_autor_livro = data.get('fk_autor_livro', livro.fk_autor_livro)  
+                livro.fk_autor = data.get('fk_autor', livro.fk_autor)  
                 livro.fk_categoria = data.get('fk_categoria', livro.fk_categoria)  
                 livro.titulo = data.get('titulo', livro.titulo)
                 livro.ano = data.get('ano', livro.ano)
