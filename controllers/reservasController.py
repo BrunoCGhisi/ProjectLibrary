@@ -6,7 +6,7 @@ def reservasController():
     if request.method == 'POST':
         try:
             data = request.get_json()
-            reservas = Reservas(data['fk_livro'], data['fk_membro'], data['data_reserva'], data['data_retirada'],  data['status'])
+            reservas = Reservas(data['fk_livro'], data['fk_membro'], data['data_reserva'], data['data_retirada'], data['status_reserva'], data['status_retirada'])
             db.session.add(reservas)
             db.session.commit()
             return 'reservas adicionado com sucesso!', 200
@@ -29,8 +29,8 @@ def reservasController():
             try:
                 
                 data = request.get_json() #pega todos os dados
-                put_reserva_id = data['id'] #pega o id dos dados que o data trouxe
-                reserva = Reservas.query.get(put_reserva_id)
+                reserva_id = request.args.to_dict().get('id')  #pega o id dos dados que o data trouxe
+                reserva = Reservas.query.get(reserva_id)
 
                 if reserva is None:
                     return{'error': 'reserva não encontrado'}, 405
@@ -39,7 +39,8 @@ def reservasController():
                 reserva.fk_membro = data.get('fk_membro', reserva.fk_membro)
                 reserva.data_reserva = data.get('data_reserva', reserva.data_reserva)
                 reserva.data_retirada = data.get('data_retirada', reserva.data_retirada)
-                reserva.status = data.get('status', reserva.status)
+                reserva.status_reserva = data.get('status_reserva', reserva.status_reserva)
+                reserva.status_retirada = data.get('status_retirada', reserva.status_retirada)
 
                
                 db.session.commit()
@@ -50,10 +51,8 @@ def reservasController():
             
     elif request.method == 'DELETE':
         try:
-            data = request.get_json() #pega todos os dados do Bruno
-
-            delete_reserva_id = data['id'] #pega o id dos dados que o data trouxe do Bruno
-            reserva = Reservas.query.get(delete_reserva_id) # vai procurar usuarios NO BANCO com esse id
+            data = request.args.to_dict().get('id') #pega todos os dados do Bruno
+            reserva = Reservas.query.get(data) # vai procurar usuarios NO BANCO com esse id
 
             if reserva is None:
                 return{'error': 'reserva não encontrado'}, 405

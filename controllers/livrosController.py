@@ -6,7 +6,7 @@ def livrosController():
     if request.method == 'POST':
         try:
             data = request.get_json()
-            livros = Livros(data['fk_autor_livro'], data['fk_categoria'], data['titulo'], data['ano'], data['disponiveis'], data['estoque'], data['capa'])
+            livros = Livros(data['fk_autor'], data['fk_categoria'], data['titulo'], data['ano'], data['disponiveis'], data['estoque'], data['capa'])
             db.session.add(livros)
             db.session.commit()
             return 'Livro adicionado com sucesso!', 200
@@ -29,14 +29,14 @@ def livrosController():
             try:
 
                 data = request.get_json() #pega todos os dados
-                put_livro_id = data['id'] #pega o id dos dados que o data trouxe
-                livro = Livros.query.get(put_livro_id)
+                livro_id = request.args.to_dict().get('id')
+                livro = Livros.query.get(livro_id)
 
                 if livro is None:
                     return{'error': 'Livro não encontrado'}, 405
                 
 
-                livro.fk_autor_livro = data.get('fk_autor_livro', livro.fk_autor_livro)  
+                livro.fk_autor = data.get('fk_autor', livro.fk_autor)  
                 livro.fk_categoria = data.get('fk_categoria', livro.fk_categoria)  
                 livro.titulo = data.get('titulo', livro.titulo)
                 livro.ano = data.get('ano', livro.ano)
@@ -55,10 +55,9 @@ def livrosController():
             
     elif request.method == 'DELETE':
         try:
-            data = request.get_json() #pega todos os dados do Bruno
 
-            delete_livro_id = data['id'] #pega o id dos dados que o data trouxe do Bruno
-            livro = Livros.query.get(delete_livro_id) # vai procurar usuarios NO BANCO com esse id
+            data = request.args.to_dict().get('id')#pega todos os dados do Bruno
+            livro = Livros.query.get(data) # vai procurar usuarios NO BANCO com esse id
 
             if livro is None:
                 return{'error': 'Livro não encontrado'}, 405

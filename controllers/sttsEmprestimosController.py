@@ -29,8 +29,8 @@ def sttsEmprestimosController():
             try:
 
                 data = request.get_json() #pega todos os dados
-                put_stts_emprestimo_id = data['id'] #pega o id dos dados que o data trouxe
-                stts_emprestimo = Status_emprestimos.query.get(put_stts_emprestimo_id)
+                stts_emprestimo_id = request.args.to_dict().get('id')#pega o id dos dados que o data trouxe
+                stts_emprestimo = Status_emprestimos.query.get(stts_emprestimo_id)
 
                 if stts_emprestimo is None:
                     return{'error': 'Status não encontrado'}, 405
@@ -46,10 +46,9 @@ def sttsEmprestimosController():
             
     elif request.method == 'DELETE':
         try:
-            data = request.get_json() #pega todos os dados do Bruno
+            data = request.args.to_dict().get('id') #pega todos os dados do Bruno
 
-            delete_stts_emprestimo_id = data['id'] #pega o id dos dados que o data trouxe do Bruno
-            stts_emprestimo = Status_emprestimos.query.get(delete_stts_emprestimo_id) # vai procurar usuarios NO BANCO com esse id
+            stts_emprestimo = Status_emprestimos.query.get(data) # vai procurar usuarios NO BANCO com esse id
 
             if stts_emprestimo is None:
                 return{'error': 'Status não encontrado'}, 405

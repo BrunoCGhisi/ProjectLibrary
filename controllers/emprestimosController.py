@@ -17,7 +17,6 @@ def emprestimosController():
     if request.method == 'GET':
         try:
             data = Emprestimos.query.all()
-
             newData = {'emprestimos': [emprestimo.to_dict() for emprestimo in data]} #pe gando os dados e deixando eles cute
             return newData, 200
 
@@ -28,9 +27,10 @@ def emprestimosController():
     elif request.method == 'PUT':
             try:
                 
+                
+                id_emprestimo = request.args.to_dict().get('id') #pega o id dos dados que o data trouxe
+                emprestimo = Emprestimos.query.get(id_emprestimo)
                 data = request.get_json() #pega todos os dados
-                put_emprestimo_id = data['id'] #pega o id dos dados que o data trouxe
-                emprestimo = Emprestimos.query.get(put_emprestimo_id)
 
                 if emprestimo is None:
                     return{'error': 'emprestimo não encontrado'}, 405
@@ -50,10 +50,8 @@ def emprestimosController():
             
     elif request.method == 'DELETE':
         try:
-            data = request.get_json() #pega todos os dados do Bruno
-
-            delete_emprestimo_id = data['id'] #pega o id dos dados que o data trouxe do Bruno
-            emprestimo = Emprestimos.query.get(delete_emprestimo_id) # vai procurar usuarios NO BANCO com esse id
+            data = request.args.to_dict().get('id')
+            emprestimo = Emprestimos.query.get(data) # vai procurar usuarios NO BANCO com esse id
 
             if emprestimo is None:
                 return{'error': 'emprestimo não encontrado'}, 405

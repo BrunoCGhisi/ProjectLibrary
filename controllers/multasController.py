@@ -29,8 +29,8 @@ def multasController():
             try:
 
                 data = request.get_json() #pega todos os dados
-                put_multa_id = data['id'] #pega o id dos dados que o data trouxe
-                multa = Multas.query.get(put_multa_id)
+                multa_id = request.args.to_dict().get('id') #pega o id dos dados que o data trouxe
+                multa = Multas.query.get(multa_id)
 
                 if multa is None:
                     return{'error': 'Status não encontrado'}, 405
@@ -53,10 +53,8 @@ def multasController():
             
     elif request.method == 'DELETE':
         try:
-            data = request.get_json() #pega todos os dados do Bruno
-
-            delete_multa_id = data['id'] #pega o id dos dados que o data trouxe do Bruno
-            multa = Multas.query.get(delete_multa_id) # vai procurar usuarios NO BANCO com esse id
+            data = request.args.to_dict().get('id') #pega todos os dados do Bruno
+            multa = Multas.query.get(data) # vai procurar usuarios NO BANCO com esse id
 
             if multa is None:
                 return{'error': 'Status não encontrado'}, 405

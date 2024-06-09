@@ -17,7 +17,6 @@ def autoresController():
     if request.method == 'GET':
         try:
             data = Autores.query.all()
-
             newData = {'autores': [autor.to_dict() for autor in data]} #pe gando os dados e deixando eles cute
             return newData, 200
 
@@ -27,9 +26,11 @@ def autoresController():
 
     elif request.method == 'PUT':
             try:
+                id_autor = request.args.to_dict().get('id')
+                autor = Autores.query.get(id_autor)
                 data = request.get_json() #pega todos os dados
-                put_autor_id = data['id'] #pega o id dos dados que o data trouxe
-                autor = Autores.query.get(put_autor_id)
+
+                
                 if autor is None:
                     return{'error': 'Autor não encontrado'}, 405
                 
@@ -45,10 +46,8 @@ def autoresController():
             
     elif request.method == 'DELETE':
         try:
-            data = request.get_json() #pega todos os dados do Bruno
-
-            delete_autor_id = data['id'] #pega o id dos dados que o data trouxe do Bruno
-            autor = Autores.query.get(delete_autor_id) # vai procurar usuarios NO BANCO com esse id
+            id_autor = request.args.to_dict().get('id') #pega o id dos dados que o data trouxe do front
+            autor = Autores.query.get(id_autor) # vai procurar usuarios NO BANCO com esse id
 
             if autor is None:
                 return{'error': 'Autor não encontrado'}, 405

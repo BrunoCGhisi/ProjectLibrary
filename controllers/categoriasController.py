@@ -1,7 +1,7 @@
 from flask import request, render_template
 from database.db import db
 from models.categorias import Categorias
-
+#a
 def clientesHtmlController():
     if request.method == 'GET':
         return render_template('catHTML.html')
@@ -22,7 +22,6 @@ def categoriasController():
     elif request.method == 'GET':
         try:
             data = Categorias.query.all()
-
             print([ categoria.to_dict() for categoria in data])
             # newdata peggando os dados e deixando eles cute
             newData={'categorias':[ categoria.to_dict() for categoria in data]}
@@ -34,10 +33,9 @@ def categoriasController():
 
     elif request.method == 'PUT':
             try:
-                
+                id_categoria = request.args.to_dict().get('id')
+                categoria = Categorias.query.get(id_categoria)
                 data = request.get_json() #pega todos os dados
-                put_categoria_id = data['id'] #pega o id dos dados que o data trouxe
-                categoria = Categorias.query.get(put_categoria_id)
 
                 if categoria is None:
                     return{'error': 'Categoria não encontrado'}, 405
