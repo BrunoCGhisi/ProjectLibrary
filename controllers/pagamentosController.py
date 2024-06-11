@@ -6,7 +6,7 @@ def pagamentosController():
     if request.method == 'POST':
         try:
             data = request.get_json()
-            pagamentos = Pagamentos(data['fk_membro'], ['fk_multa'], data['data_pagamento'])
+            pagamentos = Pagamentos(data['fk_membro'], data['fk_multa'], data['data_pagamento'], data['valor'])
             db.session.add(pagamentos)
             db.session.commit()
             return 'Pagamento add com sucesso', 200
@@ -35,6 +35,7 @@ def pagamentosController():
             pagamento.fk_membro = data.get('fk_membro', pagamento.fk_membro)
             pagamento.fk_multa = data.get('fk_multa', pagamento.fk_multa)
             pagamento.data_pagamento = data.get('data_pagamento', pagamento.data_pagamento)
+            pagamento.valor = data.get('valor', pagamento.valor)
 
             db.session.commit()
             return "pagamento atualizado com sucesso", 202

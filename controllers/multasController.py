@@ -6,7 +6,7 @@ def multasController():
     if request.method == 'POST':
         try:
             data = request.get_json()
-            multas = Multas(data['fk_empestimo'], data['fk_membro'], data['data_multa'], data['data_prazo'], data['valor'], data['status'])
+            multas = Multas(data['fk_emprestimo'], data['fk_membro'], data['data_multa'], data['data_prazo'], data['valor'], data['status'])
             db.session.add(multas)
             db.session.commit()
             return 'Multa adicionado com sucesso!', 200
@@ -17,7 +17,6 @@ def multasController():
     if request.method == 'GET':
         try:
             data = Multas.query.all()
-
             newData = {'multas': [multa.to_dict() for multa in data]} #pe gando os dados e deixando eles cute
             return newData, 200
 

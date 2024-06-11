@@ -5,7 +5,7 @@ from sqlalchemy.orm import relationship
 class Multas(db.Model):
     def to_dict(self):
         return{
-            'id_multa': self.id_multas,
+            'id_multa': self.id_multa,
             'fk_emprestimo': self.fk_emprestimo,
             'fk_membro': self.fk_membro,
             'data_multa': self.data_multa,
