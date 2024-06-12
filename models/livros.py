@@ -22,7 +22,7 @@ class Livros(db.Model):
     ano = db.Column(db.Integer, nullable=False)
     disponiveis = db.Column(db.Integer, nullable=False)
     estoque = db.Column(db.Integer, nullable=False)
-    capa = db.Column(db.String(100), nullable=False)
+    capa = db.Column(db.Text, nullable=False)
 
 
 

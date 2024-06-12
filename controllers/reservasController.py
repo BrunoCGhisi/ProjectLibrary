@@ -6,7 +6,9 @@ def reservasController():
     if request.method == 'POST':
         try:
             data = request.get_json()
-            reservas = Reservas(data['fk_livro'], data['fk_membro'], data['data_reserva'], data['data_retirada'], data['status_reserva'], data['status_retirada'])
+            reservas = Reservas(data['fk_livro'], data['fk_membro'], data['data_reserva'], data['data_retirada'], data['status'])
+                                
+            # data['status_reserva'], data['status_retirada'
             db.session.add(reservas)
             db.session.commit()
             return 'reservas adicionado com sucesso!', 200
@@ -39,8 +41,9 @@ def reservasController():
                 reserva.fk_membro = data.get('fk_membro', reserva.fk_membro)
                 reserva.data_reserva = data.get('data_reserva', reserva.data_reserva)
                 reserva.data_retirada = data.get('data_retirada', reserva.data_retirada)
-                reserva.status_reserva = data.get('status_reserva', reserva.status_reserva)
-                reserva.status_retirada = data.get('status_retirada', reserva.status_retirada)
+                """ reserva.status_reserva = data.get('status_reserva', reserva.status_reserva)
+                reserva.status_retirada = data.get('status_retirada', reserva.status_retirada) """
+                reserva.status = data.get('status', reserva.status)
 
                
                 db.session.commit()
