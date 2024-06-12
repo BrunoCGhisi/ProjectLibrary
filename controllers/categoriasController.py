@@ -26,6 +26,7 @@ def categoriasController():
         except Exception as e:
             return f'Não foi possível buscar. Erro {str(e)}', 405
         
+        
 
     elif request.method == 'PUT':
             try:
