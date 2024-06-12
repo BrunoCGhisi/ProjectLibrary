@@ -8,6 +8,13 @@ def membrosController():
 
             data = request.get_json()
             membros = Membros(data['nome'], data['email'], data['senha'], data['cpf'], data['telefone'], data['data_ingresso'], data['is_adm'], data['status'])
+
+            membro_existe = Membros.query.filter_by(email=membros.email).first() is not None
+
+            #hashed_senha= bcrypt.generate_senha_hash(membros.senha)
+            #novo_membro = Membros(email=membros.email, senha = hashed_senha )
+
+
             db.session.add(membros)
             db.session.commit()
             return 'Membro add com sucesso', 200
