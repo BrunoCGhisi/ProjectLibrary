@@ -3,6 +3,7 @@ from sqlalchemy import ForeignKey
 from sqlalchemy.orm import relationship
 from flask_restx import inputs
 
+
 class Membros(db.Model): #criando representações das tabelas do bancp (db.Model) 
     def to_dict(self): #to_dict transforma database rows em dicioinarios
         return{

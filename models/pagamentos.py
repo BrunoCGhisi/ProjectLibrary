@@ -1,6 +1,7 @@
 from database.db import db
 from sqlalchemy import ForeignKey
 from sqlalchemy.orm import relationship
+import datetime
 
 class Pagamentos(db.Model):
     def to_dict(self):
@@ -8,7 +9,7 @@ class Pagamentos(db.Model):
             'id_pagamento': self.id_pagamento,
             'fk_membro': self.fk_membro,
             'fk_multa': self.fk_multa,
-            'data_pagamento': self.data_pagamento,
+            'data_pagamento': self.data_pagamento.strftime('%d/%m/%Y'),
             'valor' : self.valor
         }
     

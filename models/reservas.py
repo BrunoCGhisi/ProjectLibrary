@@ -1,6 +1,7 @@
 from database.db import db
 from sqlalchemy import ForeignKey
 from sqlalchemy.orm import relationship
+import datetime
 
 class Reservas(db.Model):
     def to_dict(self):
@@ -8,8 +9,8 @@ class Reservas(db.Model):
             'id_reserva': self.id_reserva,
             'fk_livro': self.fk_livro,
             'fk_membro': self.fk_membro,
-            'data_reserva': self.data_reserva,
-            'data_retirada': self.data_retirada,
+            'data_reserva': self.data_reserva.strftime('%d/%m/%Y'),
+            'data_retirada': self.data_retirada.strftime('%d/%m/%Y'),
             'status_reserva': self.status_reserva,
             'status_retirada': self.status_retirada,
         }

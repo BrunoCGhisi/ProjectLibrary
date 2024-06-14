@@ -2,6 +2,7 @@ from database.db import db
 from sqlalchemy import ForeignKey
 from sqlalchemy.orm import relationship
 
+
 class Multas(db.Model):
     def to_dict(self):
         return{
