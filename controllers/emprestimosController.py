@@ -23,21 +23,35 @@ def emprestimosController():
             data = Emprestimos.query.all()
             newData = {'emprestimos': [emprestimo.to_dict() for emprestimo in data]} 
 
-            # for emprestimo_dict in newData['emprestimos']:
-            #     if 'data_retorno' in emprestimo_dict:  # Verifique se a chave existe
-            #         data_retorno = emprestimo_dict['data_retorno']
-            #         if data_retorno < date.today():
-            #             exists = []
-            #             exists.append(Multas.query.filter_by(fk_emprestimo=emprestimo_dict['id_emprestimo']))
-            #             if len(exists) > 0:
-            #                 for x in exists:
-            #                     print("a")
+            for emprestimo_dict in newData['emprestimos']: # {'id_emprestimo': 3, 'fk_livro': 7, 'fk_membro': 2, 'data_emprestimo': datetime.date(2000, 9, 9), 'data_retorno': datetime.date(2000, 9, 9), 'fk_status': 2}
+                if emprestimo_dict['data_retorno'] < date.today():
+                    if emprestimo_dict['fk_status'] != 4:
+                        id_emprestimo = emprestimo_dict['id_emprestimo']
+                        emprestimo = Emprestimos.query.get(id_emprestimo)
+                        emprestimo.fk_status = 3
 
-            # def multas(newData):
-            #     hoje = date.today()
-            #     retorno = newData.data_retorno
+            data = Multas.query.all()
+            newDataMulta = {'multas': [multa.to_dict() for multa in data]}
 
+            multa_existe = []
+            for multa_dict in newDataMulta['multas']:
+                multa_existe.append(multa_dict['fk_emprestimo'])
 
+            for emprestimo_dict in newData['emprestimos']:
+                if emprestimo_dict['fk_status'] == 3:
+                    if emprestimo_dict['id_emprestimo'] in multa_existe:
+                        pass
+                    else:
+                        newMulta = Multas(
+                        fk_emprestimo=emprestimo_dict['id_emprestimo'],
+                        fk_membro=emprestimo_dict['fk_membro'],
+                        data_multa=date.today(),
+                        data_prazo=date.today() + timedelta(7),
+                        valor=15,
+                        status=1 #Multa    ativa
+                        )
+                        db.session.add(newMulta)
+                        db.session.commit()
 
             return newData, 200
 
