@@ -1,12 +1,14 @@
 from flask import request
 from database.db import db
 from models.reservas import Reservas
+from models.emprestimos import Emprestimos
+from datetime import date, timedelta
 
 def reservasController():
     if request.method == 'POST':
         try:
             data = request.get_json()
-            reservas = Reservas(data['fk_livro'], data['fk_membro'], data['data_reserva'], data['data_retirada'], data['status'])
+            reservas = Reservas(data['fk_livro'], data['fk_membro'], data['data_reserva'], data['data_retirada'], data['status_reserva'], data['status_retirada'])
                                 
             # data['status_reserva'], data['status_retirada'
             db.session.add(reservas)
@@ -21,6 +23,47 @@ def reservasController():
             data = Reservas.query.all()
 
             newData = {'reservas': [reserva.to_dict() for reserva in data]} #pe gando os dados e deixando eles cute
+            
+            data = Emprestimos.query.all()
+            newDataEmp = {'emprestimos': [emprestimo.to_dict() for emprestimo in data]}
+            membro_emp = []
+            livro_emp = []
+
+            for emprestimo_dict in newDataEmp['emprestimos']:
+                membro_emp.append(emprestimo_dict['fk_membro'])
+                livro_emp.append(emprestimo_dict['fk_livro'])
+
+            for reserva_dict in newData['reservas']:
+                if str(reserva_dict['data_retirada']) < str(date.today()) and reserva_dict['status_retirada'] == 0:
+                    id_reserva =  reserva_dict['id_reserva']
+                    reserva = Reservas.query.get(id_reserva)
+                    reserva.status_reserva = 0
+
+                if reserva_dict['status_retirada'] == 1:
+                    if reserva_dict['fk_membro'] in membro_emp and reserva_dict['fk_livro'] in livro_emp:   
+                        if emprestimo_dict['fk_status'] == 2:
+                            newEmp = Emprestimos(
+                            fk_livro=reserva_dict['fk_livro'],
+                            fk_membro=reserva_dict['fk_membro'],
+                            data_emprestimo=date.today(),
+                            data_retorno=date.today() + timedelta(30),
+                            fk_status=1,
+                            )
+                            db.session.add(newEmp)
+                        else:
+                            pass
+                    else:
+                        newEmp = Emprestimos(
+                        fk_livro=reserva_dict['fk_livro'],
+                        fk_membro=reserva_dict['fk_membro'],
+                        data_emprestimo=date.today(),
+                        data_retorno=date.today() + timedelta(30),
+                        fk_status=1,
+                        )
+                        db.session.add(newEmp)
+                        
+            db.session.commit()
+
             return newData, 200
 
         except Exception as e:
