@@ -14,7 +14,7 @@ def sttsEmprestimosController():
             return f'Não foi possível inserir. Erro {str(e)}', 405
         
 
-    if request.method == 'GET':
+    elif request.method == 'GET':
         try:
             data = Status_emprestimos.query.all()
 

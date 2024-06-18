@@ -9,8 +9,8 @@ class Emprestimos(db.Model):
             'id_emprestimo': self.id_emprestimo,
             'fk_livro': self.fk_livro,
             'fk_membro': self.fk_membro,
-            'data_emprestimo': self.data_emprestimo,
-            'data_retorno': self.data_retorno,
+            'data_emprestimo': self.data_emprestimo.strftime('%d/%m/%Y'),
+            'data_retorno': self.data_retorno.strftime('%d/%m/%Y'),
             'fk_status': self.fk_status
         }
     

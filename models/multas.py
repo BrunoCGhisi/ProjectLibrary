@@ -1,6 +1,7 @@
 from database.db import db
 from sqlalchemy import ForeignKey
 from sqlalchemy.orm import relationship
+import datetime
 
 
 class Multas(db.Model):
@@ -9,8 +10,8 @@ class Multas(db.Model):
             'id_multa': self.id_multa,
             'fk_emprestimo': self.fk_emprestimo,
             'fk_membro': self.fk_membro,
-            'data_multa': self.data_multa,
-            'data_prazo': self.data_prazo,
+            'data_multa': self.data_multa.strftime('%d/%m/%Y'),
+            'data_prazo': self.data_prazo.strftime('%d/%m/%Y'),
             'valor': self.valor,
             'status': self.status
         }

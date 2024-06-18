@@ -2,6 +2,7 @@ from database.db import db
 from sqlalchemy import ForeignKey
 from sqlalchemy.orm import relationship
 from flask_restx import inputs
+import datetime
 
 
 class Membros(db.Model): #criando representações das tabelas do bancp (db.Model) 
@@ -13,7 +14,7 @@ class Membros(db.Model): #criando representações das tabelas do bancp (db.Mode
             'senha': self.senha,
             'cpf': self.cpf,
             'telefone': self.telefone,
-            'data_ingresso': self.data_ingresso,
+            'data_ingresso': self.data_ingresso.strftime('%d/%m/%Y'),
             'is_adm': self.is_adm,
             'status': self.status
         }

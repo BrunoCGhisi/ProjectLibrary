@@ -5,7 +5,7 @@ from models.autores import Autores
 def autoresController():
     if request.method == 'POST':
         try:
-            data = request.get_json()
+            data = request.get_json() # converte em python
             autores = Autores(data['nome'])
             db.session.add(autores)
             db.session.commit()
@@ -14,10 +14,10 @@ def autoresController():
             return f'Não foi possível inserir. Erro {str(e)}', 405
         
 
-    if request.method == 'GET':
+    elif request.method == 'GET':
         try:
             data = Autores.query.all()
-            newData = {'autores': [autor.to_dict() for autor in data]} #pe gando os dados e deixando eles cute
+            newData = {'autores': [autor.to_dict() for autor in data]} #pegando cada obj autor, e tranformando num dicionario
             return newData, 200
 
         except Exception as e:

@@ -16,5 +16,5 @@ class MyServer(): #classe que inicializa e guarda o funcionamento do flask
         return self.app.run(port=3000, debug=True, host='localhost')
 
 if __name__ == '__main__' :
-    app = MyServer() #instanciando ne aff
+    app = MyServer() #instanciando
     app.run() #inicializando

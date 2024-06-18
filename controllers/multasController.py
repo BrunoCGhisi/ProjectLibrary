@@ -14,7 +14,7 @@ def multasController():
             return f'Não foi possível inserir. Erro {str(e)}', 405
         
 
-    if request.method == 'GET':
+    elif request.method == 'GET':
         try:
             data = Multas.query.all()
             newData = {'multas': [multa.to_dict() for multa in data]} #pe gando os dados e deixando eles cute

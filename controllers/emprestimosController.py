@@ -18,7 +18,7 @@ def emprestimosController():
             return f'Não foi possível inserir. Erro {str(e)}', 405
         
 
-    if request.method == 'GET':
+    elif request.method == 'GET':
         try:
             data = Emprestimos.query.all()
             newData = {'emprestimos': [emprestimo.to_dict() for emprestimo in data]} 

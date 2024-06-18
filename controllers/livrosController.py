@@ -14,7 +14,7 @@ def livrosController():
             return f'Não foi possível inserir. Erro {str(e)}', 405
         
 
-    if request.method == 'GET':
+    elif request.method == 'GET':
         try:
             data = Livros.query.all()
             #for pra percorrer cada item data que foi alugada

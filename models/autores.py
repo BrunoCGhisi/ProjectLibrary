@@ -7,7 +7,6 @@ class Autores(db.Model): #criando representações das tabelas do bancp (db.Mode
             'nome': self.nome
         }
     
-    # o id é só ID ou é como é no banco? se for AUTO IN precisa por também?
     id_autor = db.Column(db.Integer, primary_key = True, unique=True, nullable=False)
     nome = db.Column(db.String(45), nullable=False)
 
@@ -15,4 +14,3 @@ class Autores(db.Model): #criando representações das tabelas do bancp (db.Mode
         self.nome = nome
 
 
-# MUDAR OS VALORES PRO BANCO ORIGINAL OBV
