@@ -25,7 +25,7 @@ def emprestimosController():
 
             for emprestimo_dict in newData['emprestimos']: # {'id_emprestimo': 3, 'fk_livro': 7, 'fk_membro': 2, 'data_emprestimo': datetime.date(2000, 9, 9), 'data_retorno': datetime.date(2000, 9, 9), 'fk_status': 2}
                 
-                data_retorno = datetime.strptime(emprestimo_dict['data_retorno'], '%d-%m-%Y').date()
+                data_retorno = datetime.strptime(emprestimo_dict['data_retorno'], '%d/%m/%Y').date()
                 
                 if data_retorno < date.today():
                     if emprestimo_dict['fk_status'] != 4:
