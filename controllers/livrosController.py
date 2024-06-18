@@ -17,10 +17,6 @@ def livrosController():
     elif request.method == 'GET':
         try:
             data = Livros.query.all()
-            #for pra percorrer cada item data que foi alugada
-            #se a data que foi aluga > que a data de hoje 
-            #insert na tabela multa daquele item 
-            #devolve os livros na response
             newData = {'livros': [livro.to_dict() for livro in data]} #pe gando os dados e deixando eles cute
             return newData, 200
 

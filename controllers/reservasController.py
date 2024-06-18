@@ -9,8 +9,6 @@ def reservasController():
         try:
             data = request.get_json()
             reservas = Reservas(data['fk_livro'], data['fk_membro'], data['data_reserva'], data['data_retirada'], data['status_reserva'], data['status_retirada'])
-                                
-            # data['status_reserva'], data['status_retirada'
             db.session.add(reservas)
             db.session.commit()
             return 'reservas adicionado com sucesso!', 200

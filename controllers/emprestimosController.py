@@ -2,7 +2,7 @@ from flask import request
 from database.db import db
 from models.emprestimos import Emprestimos
 from models.multas import Multas
-from datetime import date, timedelta
+from datetime import date, timedelta, datetime
 
 
 
@@ -24,7 +24,10 @@ def emprestimosController():
             newData = {'emprestimos': [emprestimo.to_dict() for emprestimo in data]} 
 
             for emprestimo_dict in newData['emprestimos']: # {'id_emprestimo': 3, 'fk_livro': 7, 'fk_membro': 2, 'data_emprestimo': datetime.date(2000, 9, 9), 'data_retorno': datetime.date(2000, 9, 9), 'fk_status': 2}
-                if emprestimo_dict['data_retorno'] < date.today():
+                
+                data_retorno = datetime.strptime(emprestimo_dict['data_retorno'], '%Y-%m-%d').date()
+                
+                if data_retorno < date.today():
                     if emprestimo_dict['fk_status'] != 4:
                         id_emprestimo = emprestimo_dict['id_emprestimo']
                         emprestimo = Emprestimos.query.get(id_emprestimo)
