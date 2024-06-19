@@ -34,10 +34,7 @@ def autoresController():
                 if autor is None:
                     return{'error': 'Autor não encontrado'}, 405
                 
-                autor.nome = data.get('nome', autor.nome)
-
-              #  autor.cargos_id = data.get('cargos_id', autor.cargos_id)
-                
+                autor.nome = data.get('nome', autor.nome)                
                 db.session.commit()
                 return "Autor atualizado com sucesso", 202
 
