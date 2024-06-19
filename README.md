@@ -2,5 +2,5 @@
 
 ## Project Library Back 
 Manejament of a Library store <br>
-### Link for front-end Git
+### Link to front-end repository git
 #### https://github.com/BrunoCGhisi/library-front.git
