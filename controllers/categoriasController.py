@@ -7,7 +7,6 @@ def categoriasController():
         try:
             data = request.get_json()
             categorias = Categorias(data['categoria'])
-            #perguntar sobre salvar a senha 
             db.session.add(categorias)
             db.session.commit()
             return 'Categorias adicionado com sucesso!', 200

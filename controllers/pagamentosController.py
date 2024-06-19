@@ -13,19 +13,12 @@ def pagamentosController():
             data = Multas.query.all()
             
             multaData = {'multas': [multa.to_dict() for multa in data]}
-            print("Multa data", multaData)
-            print("Pagamentos fk multa", pagamentos.fk_multa)
 
             for multa_dict in multaData['multas']:
-                print("Multa data", multa_dict['id_multa'])
-                print("Pagamentos fk multa", pagamentos.fk_multa)
-
                 if int(pagamentos.fk_multa) == int(multa_dict['id_multa']):
                     id_emprestimo = multa_dict['fk_emprestimo']
                     emprestimo = Emprestimos.query.get(id_emprestimo)
-                    print(f"Primeiro print emprestimo.fkstatus {emprestimo.fk_status}")
                     emprestimo.fk_status = 2
-                    print(f"Segundo print emprestimo.fkstatus {emprestimo.fk_status}")
                     id_multa = multa_dict['id_multa']
                     multa = Multas.query.get(id_multa)
                     multa.status = 0

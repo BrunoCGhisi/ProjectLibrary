@@ -28,7 +28,7 @@ def emprestimosController():
                 data_retorno = datetime.strptime(emprestimo_dict['data_retorno'], '%d/%m/%Y').date()
                 
                 if data_retorno < date.today():
-                    if emprestimo_dict['fk_status'] != 4:
+                    if emprestimo_dict['fk_status'] != 2:
                         id_emprestimo = emprestimo_dict['id_emprestimo']
                         emprestimo = Emprestimos.query.get(id_emprestimo)
                         emprestimo.fk_status = 3
@@ -51,7 +51,7 @@ def emprestimosController():
                         data_multa=date.today(),
                         data_prazo=date.today() + timedelta(7),
                         valor=15,
-                        status=1 #Multa    ativa
+                        status=1 #Multa ativa
                         )
                         db.session.add(newMulta)
                         db.session.commit()
